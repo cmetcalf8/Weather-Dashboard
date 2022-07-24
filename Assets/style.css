@@ -1,0 +1,8 @@
+.jumbotron {
+    background-image: linear-gradient(to right, rgb(120, 62, 120), rgb(103, 103, 211));
+    color: white;
+}
+
+.search {
+    padding: 10px;
+}
