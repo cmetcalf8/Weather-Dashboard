@@ -42,10 +42,8 @@ function fetchWeatherData(lat, lon) {
         var dataObject = data;
         renderTodayCard(dataObject);
 
-
-
         var temp = document.createElement("h3")
-        temp.textContent = "Temperature is: " + dataObject.current.temp + "Deg";
+        temp.textContent = "Temperature is: " + dataObject.current.temp + " deg";
 
         var humidity = document.createElement("h3")
         humidity.textContent = "Humidity is: " + dataObject.current.humidity + "%";
@@ -66,32 +64,7 @@ var keys = 0;
 searchButton.click(function () {
     citySearch();
 
-    // if (searchInput == "") {
-    //     console.log(searchInput);
-    // } else {
-    //     $.ajax({
-    //         url: currentWeather,
-    //         method: "GET"
-    //     }).then(function (response){
-    //         var cityName = $(".list-group").addClass("list-group-item");
-    //         cityName.append("<li>" + response.name + "</li>");
-    //         var local = localStorage.setItem(keys, response.name);
-    //         keys = keys + 1;
 
-    //         var currentCard = $(".currentCard").append("<div>").addClass("card-body");
-    //         currentCard.empty();
-    //         var currentName = currentCard.append("<p>");
-    //         currentCard.append(currentName);
-
-    //         var timeUTC = new Date(response.dt * 1000);
-    //         currentName.append(response.name + " " + timeUTC.toLocaleDateStrring("en-US"));
-    //         currentName.append('<img src="');
-    //         // what src to put above
-    //         var currentTemp = currentName.append("<p>");
-    //         currentName.append(currenTemp);
-    //         currentTemp.append("<p>" + "Temperature: " + response.main.temp + "</p>");
-    //         currentTemp.append("<p>" + "Humidity: " + response.main.humidity + "%" + "</p>");
-    //         currentTemp.append("<p>" + "Wind Speed: " + response.wind.speed + "</p>");
     //         //UV index URL
     //         var urlUV = "https://api.openweathermap.org/data/2.5/uvi?appid=b8ecb570e32c2e5042581abd004b71bb&lat=${response.coord.lat}&lon=${response.coord.lon}";
 
