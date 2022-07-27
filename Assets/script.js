@@ -15,6 +15,7 @@ function citySearch () {
     fetchLatLon(searchInput);
 }
 
+// function to pull in the weather api
 function fetchLatLon(city) {
     var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
     fetch(apiURL)
@@ -32,6 +33,8 @@ function fetchLatLon(city) {
         console.log(data.coord.lat);
     })
 }
+
+// function to pull in latitude and longitude info
 function fetchWeatherData(lat, lon) {
     var apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${apiKey}`
     fetch(apiURL)
