@@ -24,33 +24,36 @@ function fetchLatLon(city) {
     .then(function(data) {
         var lat = data.coord.lat;
         var lon = data.coord.lon;
+        console.log(data.name);
+        var cityName = document.createElement("h2");
+        cityName.textContent = "Weather in " + data.name;
+        document.querySelector(".card-title").append(cityName);
         fetchWeatherData(lat, lon);
         console.log(data.coord.lat);
     })
 }
 function fetchWeatherData(lat, lon) {
-    var apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&appid=${apiKey}`
+    var apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${apiKey}`
     fetch(apiURL)
     .then(function(response) {
         return response.json();
     })
     .then(function(data) {
         var dataObject = data;
-        renderTodayCard(dataObject)
+        renderTodayCard(dataObject);
 
-        var cityName = document.createElement("h2")
-        cityName.textContent = "Weather in " + dataObject.cityName
+
 
         var temp = document.createElement("h3")
-        temp.textContent = "Temperature is: " + dataObject.temp
+        temp.textContent = "Temperature is: " + dataObject.current.temp + "Deg";
 
         var humidity = document.createElement("h3")
-        humidity.textContent = "Humidity is: " + dataObject.humidity
+        humidity.textContent = "Humidity is: " + dataObject.current.humidity + "%";
 
         var wind = document.createElement("h3")
-        wind.textContent = "Wind is: " + dataObject.wind
+        wind.textContent = "Wind is: " + dataObject.current.wind_speed + "mph";
 
-        document.querySelector(".card-title").append(cityName, temp, humidity, wind)
+        document.querySelector(".card-title").append(temp, humidity, wind);
     })
 }
 
