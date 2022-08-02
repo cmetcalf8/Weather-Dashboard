@@ -26,6 +26,18 @@ function fetchLatLon(city) {
         var lat = data.coord.lat;
         var lon = data.coord.lon;
         console.log(data.name);
+
+        // adds cities to local storage
+        var cities = localStorage.getItem("cities") || [];
+        cities.push(data.name);
+        console.log(cities);
+        localStorage.setItem("cities", cities);
+
+        var parent = document.querySelector(".card-title");
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+
         var cityName = document.createElement("h2");
         cityName.textContent = "Weather in " + data.name;
         document.querySelector(".card-title").append(cityName);
@@ -54,12 +66,32 @@ function fetchWeatherData(lat, lon) {
         var wind = document.createElement("h3")
         wind.textContent = "Wind is: " + dataObject.current.wind_speed + "mph";
 
-        document.querySelector(".card-title").append(temp, humidity, wind);
+        var uvIndex = document.createElement("h3")
+        uvIndex.textContent = "UV Index: " + dataObject.current.uvi;
+
+        var uvColor = document.createElement("span")
+        uvColor.textContent = dataObject.current.uvi;
+        console.log(uvColor.textContent);
+                    var changeColor = function(uvi) {
+                        const uvIndex = parseFloat(uvi.textContent);
+                    if(uvIndex < 2){
+                        uvi.style.backgroundColor = 'green';
+                    } else if(uvIndex > 2 && uvIndex <= 5){
+                        uvi.style.backgroundColor = 'yellow';
+                    } else if(uvIndex > 5 && uvIndex <= 7){
+                        uvi.style.backgroundColor = 'orange';
+                    } else if(uvIndex >7){
+                        uvi.style.backgroundColor = 'red';
+                    }
+                }
+                changeColor(uvColor);
+                console.log(uvColor);
+
+        document.querySelector(".card-title").append(temp, humidity, wind, uvIndex, uvColor);
     })
 }
 
 function renderTodayCard(data) {
-
     console.log(data);
 }
 
@@ -68,39 +100,22 @@ searchButton.click(function () {
     citySearch();
 
 
-    //         //UV index URL
-    //         var urlUV = "https://api.openweathermap.org/data/2.5/uvi?appid=b8ecb570e32c2e5042581abd004b71bb&lat=${response.coord.lat}&lon=${response.coord.lon}";
-
-    //         // UV index
-    //         $.ajax({
-    //             url: urlUV, 
-    //             method: "GET"
-    //         }).then(function (response) {
-    //             var currentUV = currentTemp.append("<p>") + "UV Index: " + response.value + "</p>".addClass("card-text");
-    //             currentUV.addClass("UV");
-    //             currentTemp.append(currentUV);
-    //         });
-    //     });
-
-    //     $.ajax({
-    //         url: urlFiveDay,
-    //         method: "GET"
-    //     }).then(function (response) {
-    //         // Array for 5-days 
-    //         var day = [0, 8, 16, 24, 32];
-    //         var fiveDayCard = $(".fiveDayCard").addClass("card-body");
-    //         var fiveDayDiv = $(".fiveDayOne").addClass("card-text");
-    //         fiveDayDiv.empty();
-    //         // For each for 5 days
-    //         day.forEach(function (i) {
-    //             var FiveDayTimeUTC1 = new Date(response.list[i].dt * 1000);
-    //             FiveDayTimeUTC1 = FiveDayTimeUTC1.toLocaleDateString("en-US");
-
-    //             fiveDayDiv.append("<div class=fiveDayColor>" + "<p>" + FiveDayTimeUTC1 + "</p>" + `<img src="https://openweathermap.org/img/wn/${response.list[i].weather[0].icon}@2x.png">` + "<p>" + "Temperature: " + response.list[i].main.temp + "</p>" + "<p>" + "Humidity: " + response.list[i].main.humidity + "%" + "</p>" + "</div>");
+            // function changeUvColor(input, uvi){
+        //     $(input).removeClass();
+        //     if (uvi <= 2){
+        //         $(input).addClass('low');
+        //     }
+        //     else if(uvi > 2 && uvi <= 5){
+        //         $(input).addClass('moderate');
+        //     }
+        //     else if(uvi > 5 && uvi <= 7){
+        //         $(input).addclass('high');
+        //     }
+        //     else if(uvi > 7){
+        //         $(input).addClass('very-high');
+        //     }
+        //     console.log(changeUvColor);
+        // }
 
 
-    //         })
-
-    //     });
-    // }
 });
